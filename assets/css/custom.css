@@ -1,0 +1,26 @@
+/* here you can put your own css to customize and override the theme */
+
+
+/***
+Menghilangkan arrow pada input bertipe number
+***/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.blank_row{
+	height: 50px !important;
+}
+
+.daftar {
+	border: 1px solid black;
+}
+.daftar thead tr th{
+	font-size: 15px
+}
+
+.daftar tbody{
+	font-size: 15px
+}

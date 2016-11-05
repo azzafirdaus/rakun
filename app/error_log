@@ -1,0 +1,5 @@
+[28-Nov-2015 21:23:11 Asia/Jakarta] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/gvsspaas/public_html/app/Terapis.php on line 9
+[28-Nov-2015 21:23:13 Asia/Jakarta] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/gvsspaas/public_html/app/Terapis.php on line 9
+[28-Nov-2015 21:23:14 Asia/Jakarta] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/gvsspaas/public_html/app/Terapis.php on line 9
+[30-Nov-2015 14:03:07 Asia/Jakarta] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/gvsspaas/public_html/app/Customer.php on line 9
+[30-Nov-2015 14:04:15 Asia/Jakarta] PHP Fatal error:  Class 'Illuminate\Database\Eloquent\Model' not found in /home/gvsspaas/public_html/app/TransaksiMassage.php on line 10
