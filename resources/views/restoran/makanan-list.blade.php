@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Stock</title>
+        <title>Menu Makanan</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -27,7 +27,6 @@
         <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
         <!-- END THEME STYLES -->
-        <link rel="shortcut icon" href="favicon.ico"/>
     </head>
     
     <!-- BEGIN BODY -->
@@ -39,9 +38,11 @@
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
         <div class="content">
+            <form action="{{ url('restoran/makanan') }}" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="noGelang" value="{{ $noGelang }}">
+
             <!-- BEGIN LOGIN FORM -->
-                <h3 class="form-title" style='font-size: 38px;'>Stock</h3>
-                    
                 <!-- BEGIN CRUD TABLE -->
                 <div>
                     <div>
@@ -49,6 +50,9 @@
                             <table class="table table-hover" style="font-size:20px;">
                                 <thead>
                                     <tr>
+                                        <th style="font-size:20px;">
+                                            No.
+                                        </th>
                                         <th style="font-size:20px;">
                                             Nama
                                         </th>
@@ -58,46 +62,53 @@
 
                                     </tr>
                                 </thead>
-                            <tbody>
-                            
-                                
-                                @foreach($itemList as $item)
-                    <tr>
-                        <td>
-                             {{ $item->nama }}
-                        </td>
-                        <td>
-                             {{ $item->stock }}
-                        </td>
-                        <td>
-                            <form action="{{ url('stock') }}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input class="hidden" type="" autocomplete="off" placeholder="" name="nama" value="{{ $item->nama }}"/>
-                                <button type="submit" class="btn btn-default btn-xs" style="font-size:16px;"><i class="fa fa-edit"></i> Add</button>
-                                <button type="submit" formaction="{{ url('itemDelete') }}" class="btn btn-default btn-xs hidden" style="font-size:16px;"><i class="fa fa-eraser"></i> Hapus</button>
-                            </form>
-                        </td>
-                    </tr>    
-                    @endforeach   
-                            
-                            </tbody>
+                                <tbody>
+                                    <p type="hidden"><?php $count = 1; ?></p>
+                                        
+                                    @foreach($makananList as $makanan)
+                                    <tr>
+                                        <td>
+                                             {{ $count++ }}
+                                        </td>
+                                        <td>
+                                             {{ $makanan->nama }}<br>
+                                             Rp. {{ number_format($makanan->price) }}
+                                        </td>
+                                        <td>
+                                            <button type="button" id="sub" class="sub" style="width: 30px">-</button>
+                                            <input type="number" id="{{ $makanan->id_item }}" value="0" min="0" max="{{ $makanan->stock }}" name="jumlahbeli" style="width: 40px; text-align: center;" />
+                                            <button type="button" id="add" class="add" style="width: 30px">+</button>
+                                        </td>
+                                    </tr>    
+                                    @endforeach   
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
                 <!-- END CRUD TABLE -->
-                <div class="form-actions hidden-print">
-                    <button type="button" onclick="location.href = '{{ url('cashierMenu') }}';" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Cashier
-                    </button>
-                    <button type="button" class="btn btn-success pull-right" onclick="window.print();">
-                        <i class="fa fa-print"></i> Print 
+                <div>           
+                    <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
                     </button>
                 </div>
             <!-- END LOGIN FORM -->
+            </form>
         </div>
         <!-- END LOGIN -->
     </body>
-<!-- END BODY -->
+    <!-- END BODY -->
+    <script type="text/javascript" src="{{ URL::asset('assets/plugins/jquery-1.10.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/plugins/jquery-migrate-1.2.1.min.js') }}"></script>
+    <script>
+        $('.add').click(function () {
+            if ($(this).prev().val() < parseInt($(this).prev().attr("max"),10))
+                $(this).prev().val(+$(this).prev().val() + 1);
+        });
+        $('.sub').click(function () {
+            if ($(this).next().val() > 0) 
+                $(this).next().val(+$(this).next().val() - 1);
+        });
+    </script>
 </html>

@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Terapis Auto Menu</title>
+        <title>Restoran Auto Menu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -32,14 +32,10 @@
     
     <!-- BEGIN BODY -->
     <body class="terapis">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-        <!--<img src="assets/img/logo.png" alt=""/>-->
-        </div>
-        <!-- END LOGO -->
+        <br>
 
         <div class="home-button">
-            <form class="terapis-form" action="{{ url('menuMakanan') }}" method="post"> 
+            <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="noGelang" value="{{ $nama }}">
 
@@ -55,7 +51,11 @@
                 </div>
 
                 <div>
-                    <button type="button" onclick="location.href = '{{ url('menuTerapisStop') }}';">Minuman</button>
+                    <button type="submit" formaction="{{ url('restoran/minuman') }}">Minuman</button>
+                </div>
+
+                <div>
+                    <button type="submit" formaction="{{ url('restoran/rokok') }}">Rokok</button>                
                 </div>
             </form>
         </div>

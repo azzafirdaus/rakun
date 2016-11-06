@@ -11,13 +11,14 @@ class Item extends Model
     protected $table = 'item';
     public $timestamps = false;
     
-    public static function add($nama, $price, $id) {
+    public static function add($nama, $price, $id, $jenis) {
 
         $item = new Item;
 
         $item->id_item = $id;
         $item->nama = $nama;
         $item->price = $price;
+        $item->jenis = $jenis;
 
         $item->save();
     }

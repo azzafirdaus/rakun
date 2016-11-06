@@ -37,7 +37,7 @@
         <!--<img src="assets/img/logo.png" alt=""/>-->
         </div>
         <!-- END LOGO -->
-        <p style='font-size: 70px; color: white; text-align: center;'>KARTU PELANGGAN</p>
+        <p style='font-size: 70px; color: white; text-align: center;'>MENU RESTORAN</p>
         <br>
         <!-- BEGIN LOGIN -->
         <div class="content">
@@ -69,9 +69,7 @@
         </div>
         <!-- END LOGIN -->
     <div class="col-md-2 col-md-offset-3 back" style="margin-top:30px;">
-        <button type="button" style="height: 60px; font-size: 30px;" onclick="Confirm.render('Anda yakin ingin kembali?')" class="btn btn-primary">
-            <span class="glyphicon glyphicon-chevron-left"></span> Kembali ke Menu Awal
-        </button>
+        
     </div>
 
     <div id="dialogoverlay"></div>

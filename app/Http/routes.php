@@ -19,6 +19,15 @@ Route::group(array('prefix' => 'restoran'), function(){
     });
 
 	Route::post('/', 'RestoranController@restoran');
+	
+	Route::get('makanan', 'RestoranController@makanan');
+	Route::post('makanan', 'RestoranController@makanan');
+
+	Route::get('minuman', 'RestoranController@minuman');
+	Route::post('minuman', 'RestoranController@minuman');
+
+	Route::get('rokok', 'RestoranController@rokok');
+	Route::post('rokok', 'RestoranController@rokok');
 
 });
 

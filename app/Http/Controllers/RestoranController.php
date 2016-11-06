@@ -11,37 +11,53 @@ use App\Gelang;
 use App\Room;
 use App\Fasilitas;
 use App\Periode;
-use Validator, Input, Redirect, Hash. Auth; 
+use App\Item;
+use Validator, Input, Redirect, Hash, Auth; 
 
 class RestoranController extends Controller{
     
     public function restoran(){
         if(Periode::activeExist() == 1){
-            return view('restoran.menu');
+            $noGelang = Input::get('noGelang');
+            
+            if(Gelang::checkAvailable($noGelang) != 0) {
+                return view('restoran.menu')
+                    ->with('noGelang', $noGelang);
+            }   
+            return redirect('restoran')->withErrors("Nomor kartu pelanggan belum dipakai");
         }
         return redirect('restoran')->withErrors('Transaksi belum dibuka');    
     }
 
-    public function menuMakanan(){
+    public function makanan(){
         if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
+
+            return view('restoran.makanan-list')
+                    ->with('noGelang', $noGelang)
+                    ->with('makananList', Item::where('jenis', 'Makanan')->get());
+        }
+        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+    }
+
+    public function minuman(){
+        if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
 
         }
         return redirect('restoran')->withErrors('Transaksi belum dibuka');
     }
 
-    public function menuMinuman(){
+    public function rokok(){
         if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
 
         }
         return redirect('restoran')->withErrors('Transaksi belum dibuka');
     }
 
-    public function menuRokok(){
-        if(Periode::activeExist() == 1){
+    
 
-        }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
-    }
 
     public function karaokeMenu(){
 
