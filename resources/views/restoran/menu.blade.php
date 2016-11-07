@@ -37,7 +37,7 @@
         <div class="home-button">
             <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="noGelang" value="{{ $nama }}">
+                <input type="hidden" name="noGelang" value="{{ $noGelang }}">
 
                 <!-- <h3 class="form-title" style='font-size: 38px;'>Terapis Naik</h3> -->
                 @foreach ($errors->all() as $error)

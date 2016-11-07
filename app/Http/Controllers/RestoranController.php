@@ -12,6 +12,7 @@ use App\Room;
 use App\Fasilitas;
 use App\Periode;
 use App\Item;
+use App\TransaksiBar;
 use Validator, Input, Redirect, Hash, Auth; 
 
 class RestoranController extends Controller{
@@ -36,6 +37,58 @@ class RestoranController extends Controller{
             return view('restoran.makanan-list')
                     ->with('noGelang', $noGelang)
                     ->with('makananList', Item::where('jenis', 'Makanan')->get());
+        }
+        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+    }
+
+    public function makananBeli(){
+        if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
+
+            $pesanan = array();
+            $iditem = Input::get('id_item');
+            $jumlahbeli = Input::get('jumlahbeli');
+            $jumlah = Input::get('jumlah');
+
+            if($jumlah > 0){
+                $total = 0;
+
+                foreach($iditem as $index => $id) {
+                    array_push($pesanan, 
+                          [
+                            'qty' => $jumlahbeli[$index],
+                            'id' => $id . ' @ ' . Item::getPrice($id),                      
+                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                          ]
+                          );
+                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                }
+            
+                $saldo = Gelang::getSaldo($noGelang);
+                $sisa = $saldo - $total;
+                if($sisa < 0) {
+                    return view('restoran.makanan-list')
+                        ->with('jumlahbeli', $jumlahbeli)
+                        ->with('id_item', $$iditem)
+                        ->with('noGelang', $noGelang)
+                        ->withErrors('Saldo tidak mencukupi');
+                }
+                
+                Gelang::minSaldo(Input::get('noGelang'), $total);
+                
+                foreach($iditem as $index => $id) {
+                    Item::kurangStock($id, $jumlahbeli[$index]);
+                    TransaksiBar::add($id, $jumlahbeli[$index], $noGelang);
+                }
+
+                var_dump($iditem);
+/*                return view('barInvoice')->with('noKartu', Input::get('noKartu'))->with('transaksiBar', $all)->with('totalTransaksiBar', $total)
+                        ->with('transaksiBar1', $result1)
+                        ->with('transaksiBar2', $jumlahbeli)
+                        ->with('sisa' , Gelang::getSaldo(Input::get('noKartu')))
+                        ->with('saldo', $saldo);*/
+            }
+
         }
         return redirect('restoran')->withErrors('Transaksi belum dibuka');
     }

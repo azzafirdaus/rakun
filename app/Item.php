@@ -42,6 +42,10 @@ class Item extends Model
     public static function getStock($name) {
         return DB::table('item')->where('nama', $name)->pluck('stock');;
     }
+
+    public static function getStockById($id) {
+        return DB::table('item')->where('id_item', $id)->pluck('stock');;
+    }
     
     public static function updateNama($id, $nama) {
         DB::table('item')->where('id_item', $id)->update(['nama' => $nama]);;
@@ -79,5 +83,10 @@ class Item extends Model
     public static function minStock($nama, $jumlah) {
         $saldo = Item::getStock($nama);
         DB::table('item')->where('nama', $nama)->update(['stock' => $saldo - $jumlah]);
-    } 
+    }
+
+    public static function kurangStock($id, $jumlah) {
+        $stock = Item::getStockById($id);
+        DB::table('item')->where('id_item', $id)->update(['stock' => $stock - $jumlah]);
+    }
 }

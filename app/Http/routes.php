@@ -21,7 +21,7 @@ Route::group(array('prefix' => 'restoran'), function(){
 	Route::post('/', 'RestoranController@restoran');
 	
 	Route::get('makanan', 'RestoranController@makanan');
-	Route::post('makanan', 'RestoranController@makanan');
+	Route::post('makanan', 'RestoranController@makananBeli');
 
 	Route::get('minuman', 'RestoranController@minuman');
 	Route::post('minuman', 'RestoranController@minuman');

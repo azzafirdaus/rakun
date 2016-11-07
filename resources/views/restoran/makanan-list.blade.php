@@ -64,8 +64,10 @@
                                 </thead>
                                 <tbody>
                                     <p type="hidden"><?php $count = 1; ?></p>
-                                        
-                                    @foreach($makananList as $makanan)
+                                    <p type="hidden"><?php $jumlah = 0; ?></p>
+                                    
+                                    @foreach($makananList as $index => $makanan)
+                                    <input type="hidden" name="id_item[]" value="{{$makanan->id_item}}" />
                                     <tr>
                                         <td>
                                              {{ $count++ }}
@@ -76,21 +78,25 @@
                                         </td>
                                         <td>
                                             <button type="button" id="sub" class="sub" style="width: 30px">-</button>
-                                            <input type="number" id="{{ $makanan->id_item }}" value="0" min="0" max="{{ $makanan->stock }}" name="jumlahbeli" style="width: 40px; text-align: center;" />
+                                            <input type="number" value="0" min="0" max="{{ $makanan->stock }}" name="jumlahbeli[]" style="width: 40px; text-align: center;"/>
                                             <button type="button" id="add" class="add" style="width: 30px">+</button>
                                         </td>
-                                    </tr>    
+                                    </tr>
+                                    <p type="hidden"><?php $jumlah++; ?></p>    
                                     @endforeach   
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <input type="hidden" name="jumlah" value="{{$jumlah}}" />
                 <!-- END CRUD TABLE -->
                 <div>           
                     <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
+                    </button>
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="fa fa-credit-card"></i> Beli 
                     </button>
                 </div>
             <!-- END LOGIN FORM -->

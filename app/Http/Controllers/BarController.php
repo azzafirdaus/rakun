@@ -199,15 +199,6 @@ class BarController extends Controller {
                             }
                         }
                     }
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 if(Item::getStock(Item::getNama(Input::get('id'))) >= Input::get('jumlahItem')) {
                     array_push($data, Item::getNama(Input::get('id')));
             
@@ -221,14 +212,6 @@ class BarController extends Controller {
                     ->with('transaksiBar1', $data)
                     ->with('transaksiBar2', $data1)->with('noKartu', Input::get('noKartu'))->withErrors('Stock item tidak mencukupi');
                 }
-                
-                
-                
-                
-                
-                
-                
-                
             } else {
                 return view('barMenu')
                 ->with('transaksiBar1', $data)
