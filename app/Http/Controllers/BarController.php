@@ -181,24 +181,25 @@ class BarController extends Controller {
 		    }
             
             if(Item::getNama(Input::get('id')) != NULL) {
-                
-                
-                $indexnya = 0;
-                    foreach ($data as $index => $isi) {
-                        if ($isi == Item::getNama(Input::get('id'))) {
-                            if(Item::getStock(Item::getNama(Input::get('id'))) >= Input::get('jumlahItem') + $data1[$index]) {
-                                $data1[$index] += Input::get('jumlahItem');
-                                
-                    return view('barMenu')
-                        ->with('transaksiBar1', $data)
-                        ->with('transaksiBar2', $data1)->with('noKartu', Input::get('noKartu'));
-                            } else {
-                                return view('barMenu')
+                foreach ($data as $index => $isi) {
+                    if ($isi == Item::getNama(Input::get('id'))) {
+                        if(Item::getStock(Item::getNama(Input::get('id'))) >= Input::get('jumlahItem') + $data1[$index]) {
+                            $data1[$index] += Input::get('jumlahItem');
+                            
+                            return view('barMenu')
                                 ->with('transaksiBar1', $data)
-                                ->with('transaksiBar2', $data1)->with('noKartu', Input::get('noKartu'))->withErrors('Stock item tidak mencukupi');
-                            }
+                                ->with('transaksiBar2', $data1)
+                                ->with('noKartu', Input::get('noKartu'));
+                                
+                        } else {
+                            return view('barMenu')
+                                ->with('transaksiBar1', $data)
+                                ->with('transaksiBar2', $data1)
+                                ->with('noKartu', Input::get('noKartu'))
+                                ->withErrors('Stock item tidak mencukupi');
                         }
                     }
+                }
                 if(Item::getStock(Item::getNama(Input::get('id'))) >= Input::get('jumlahItem')) {
                     array_push($data, Item::getNama(Input::get('id')));
             

@@ -41,9 +41,13 @@
             <form action="{{ url('restoran/makanan') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="noGelang" value="{{ $noGelang }}">
+            <input type="hidden" name="saldo" value="{{ $saldo }}" id="saldo">
 
             <!-- BEGIN LOGIN FORM -->
                 <!-- BEGIN CRUD TABLE -->
+                @foreach ($errors->all() as $error)
+                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
+                @endforeach
                 <div>
                     <div>
                         <div>
@@ -64,39 +68,36 @@
                                 </thead>
                                 <tbody>
                                     <p type="hidden"><?php $count = 1; ?></p>
-                                    <p type="hidden"><?php $jumlah = 0; ?></p>
                                     
                                     @foreach($makananList as $index => $makanan)
-                                    <input type="hidden" name="id_item[]" value="{{$makanan->id_item}}" />
+                                    <input type="hidden" name="id_item[]" value="{{$makanan['id_item']}}" />
                                     <tr>
                                         <td>
                                              {{ $count++ }}
                                         </td>
                                         <td>
-                                             {{ $makanan->nama }}<br>
-                                             Rp. {{ number_format($makanan->price) }}
+                                             {{ $makanan['nama'] }}<br>
+                                             Rp. {{ number_format($makanan['price']) }}
                                         </td>
                                         <td>
                                             <button type="button" id="sub" class="sub" style="width: 30px">-</button>
-                                            <input type="number" value="0" min="0" max="{{ $makanan->stock }}" name="jumlahbeli[]" style="width: 40px; text-align: center;"/>
+                                            <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $makanan['stock'] }}" name="jumlahbeli[]" harga="{{ $makanan['price'] }}" style="width: 40px; text-align: center;"/>
                                             <button type="button" id="add" class="add" style="width: 30px">+</button>
                                         </td>
                                     </tr>
-                                    <p type="hidden"><?php $jumlah++; ?></p>    
                                     @endforeach   
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="jumlah" value="{{$jumlah}}" />
                 <!-- END CRUD TABLE -->
                 <div>           
                     <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
                     </button>
                     <button type="submit" class="btn btn-success pull-right">
-                        <i class="fa fa-credit-card"></i> Beli 
+                        <i class="fa fa-credit-card"></i> Order 
                     </button>
                 </div>
             <!-- END LOGIN FORM -->
