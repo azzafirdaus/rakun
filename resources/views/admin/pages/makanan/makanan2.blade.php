@@ -49,6 +49,9 @@
                         <th style="font-size:16px;">
                              Harga
                         </th>
+                        <th style="font-size:16px;">
+                             Jenis
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,6 +66,9 @@
                         </td>
                         <td>
                              {{ $item->price }}
+                        </td>
+                        <td>
+                             {{ $item->jenis }}
                         </td>
                         <td>
                             <form action="{{ url('admin/pages/makanan2-update') }}" method="post">

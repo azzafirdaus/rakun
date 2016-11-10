@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Invoice Restoran</title>
+        <title>Invoice Restoran3</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -38,9 +38,9 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" action="{{ url('restoran') }}" method="post">
+            <form class="login-form" action="{{ url('restoran3') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <h3 class="form-title hidden-print" style='font-size: 38px;'>Invoice Restoran</h3>
+                <h3 class="form-title hidden-print" style='font-size: 38px;'>Invoice Restoran3</h3>
                 <br>
                 <div class="col-md-6 col-md-offset-3" id="tagihan">
                     <div>
@@ -124,7 +124,7 @@
                         <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
                     </button>
                     <div class="pull-right">
-                        <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-success" onclick="window.print();">
+                        <button type="submit" formaction="{{ url('restoran3') }}" class="btn btn-success" onclick="window.print();">
                             <span class="glyphicon glyphicon-check"></span> Print Invoice
                         </button>
                     </div>

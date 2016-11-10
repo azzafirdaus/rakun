@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Restoran Auto Menu</title>
+        <title>Restoran3 Auto Menu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -35,7 +35,7 @@
         <br>
 
         <div class="home-button">
-            <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
+            <form class="terapis-form" action="{{ url('restoran3/makanan') }}" method="get"> 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="noGelang" value="{{ $noGelang }}">
 
@@ -51,19 +51,19 @@
                 </div>
 
                 <div>
-                    <button type="submit" formaction="{{ url('restoran/minuman') }}">Minuman</button>
+                    <button type="submit" formaction="{{ url('restoran3/minuman') }}">Minuman</button>
                 </div>
 
                 <div>
-                    <button type="submit" formaction="{{ url('restoran/rokok') }}">Rokok</button>                
+                    <button type="submit" formaction="{{ url('restoran3/rokok') }}">Rokok</button>                
                 </div>
             </form>
         </div>
 
+        
         <button type="button" onclick="location.href = '{{ url('restoran') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
             <span class="glyphicon glyphicon-chevron-left"></span> Keluar
         </button>
-        
         <!-- END LOGIN -->
     </body>
 <!-- END BODY -->

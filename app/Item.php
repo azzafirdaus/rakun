@@ -35,6 +35,10 @@ class Item extends Model
         return DB::table('item')->where('id_item', $id)->pluck('price');;
     }
     
+    public static function getJenis($id) {
+        return DB::table('item')->where('id_item', $id)->pluck('jenis');;
+    }
+
     public static function getPriceWithName($name) {
         return DB::table('item')->where('nama', $name)->pluck('price');;
     }
@@ -53,6 +57,10 @@ class Item extends Model
                                         
     public static function updatePrice($id, $price) {
         DB::table('item')->where('id_item', $id)->update(['price' => $price]);;
+    }
+
+    public static function updateJenis($id, $jenis) {
+        DB::table('item')->where('id_item', $id)->update(['jenis' => $jenis]);;
     }
                                         
     public static function deleteItem($id) {        

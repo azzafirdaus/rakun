@@ -260,7 +260,7 @@ class AdminController extends Controller{
 
     public function makanan_add(){
         if(Item::exists(Input::get('id')) == 0) {
-        Item::add(Input::get('nama'), Input::get('price'), Input::get('id'));
+        Item::add(Input::get('nama'), Input::get('price'), Input::get('id'), Input::get('jenis'));
         return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);
         } else {
             return view('admin/pages/makanan')->with('itemList', Item::all())->withErrors('Id makanan sudah terdaftar')->with('activePage', 'makanan')->with('peran', 1);
@@ -272,6 +272,7 @@ class AdminController extends Controller{
             ->with('id', Input::get('id'))
             ->with('nama', Item::getNama(Input::get('id')))
             ->with('price', Item::getPrice(Input::get('id')))
+            ->with('jenis', Item::getJenis(Input::get('id')))
             ->with('activePage', 'makanan')
             ->with('peran', 1);
     }
@@ -281,10 +282,12 @@ class AdminController extends Controller{
         $id = Input::get('id');
         $nama = Input::get('nama');
         $price = Input::get('price');
+        $jenis = Input::get('jenis');
         
         
         Item::updateNama($id, $nama);
         Item::updatePrice($id, $price);
+        Item::updateJenis($id, $jenis);
         
         return view('admin/pages/makanan')->with('itemList', Item::all())->with('activePage', 'makanan')->with('peran', 1);   
     }
@@ -401,7 +404,7 @@ class AdminController extends Controller{
 
     public function makanan2_add(){
         if(Item2::exists(Input::get('id')) == 0) {
-        Item2::add(Input::get('nama'), Input::get('price'), Input::get('id'));
+        Item2::add(Input::get('nama'), Input::get('price'), Input::get('id'), Input::get('jenis'));
         return view('admin/pages/makanan/makanan2')->with('itemList', Item2::all())->with('activePage', 'makanan2')->with('peran', 1);
         } else {
             return view('admin/pages/makanan/makanan2')->with('itemList', Item2::all())->withErrors('Id makanan sudah terdaftar')->with('activePage', 'makanan2')->with('peran', 1);
@@ -413,6 +416,7 @@ class AdminController extends Controller{
             ->with('id', Input::get('id'))
             ->with('nama', Item2::getNama(Input::get('id')))
             ->with('price', Item2::getPrice(Input::get('id')))
+            ->with('jenis', Item2::getJenis(Input::get('id')))
             ->with('activePage', 'makanan2')
             ->with('peran', 1);
     }
@@ -422,10 +426,12 @@ class AdminController extends Controller{
         $id = Input::get('id');
         $nama = Input::get('nama');
         $price = Input::get('price');
+        $jenis = Input::get('jenis');
         
         
         Item2::updateNama($id, $nama);
         Item2::updatePrice($id, $price);
+        Item2::updateJenis($id, $jenis);
         
         return view('admin/pages/makanan/makanan2')->with('itemList', Item2::all())->with('activePage', 'makanan2')->with('peran', 1);   
     }
@@ -449,7 +455,7 @@ class AdminController extends Controller{
 
     public function makanan3_add(){
         if(Item3::exists(Input::get('id')) == 0) {
-        Item3::add(Input::get('nama'), Input::get('price'), Input::get('id'));
+        Item3::add(Input::get('nama'), Input::get('price'), Input::get('id'), Input::get('jenis'));
         return view('admin/pages/makanan/makanan3')->with('itemList', Item3::all())->with('activePage', 'makanan3')->with('peran', 1);
         } else {
             return view('admin/pages/makanan/makanan3')->with('itemList', Item3::all())->withErrors('Id makanan sudah terdaftar')->with('activePage', 'makanan3')->with('peran', 1);
@@ -461,6 +467,7 @@ class AdminController extends Controller{
             ->with('id', Input::get('id'))
             ->with('nama', Item3::getNama(Input::get('id')))
             ->with('price', Item3::getPrice(Input::get('id')))
+            ->with('jenis', Item3::getJenis(Input::get('id')))
             ->with('activePage', 'makanan3')
             ->with('peran', 1);
     }
@@ -470,10 +477,12 @@ class AdminController extends Controller{
         $id = Input::get('id');
         $nama = Input::get('nama');
         $price = Input::get('price');
+        $jenis = Input::get('jenis');
         
         
         Item3::updateNama($id, $nama);
         Item3::updatePrice($id, $price);
+        Item3::updateJenis($id, $jenis);
         
         return view('admin/pages/makanan/makanan3')->with('itemList', Item3::all())->with('activePage', 'makanan3')->with('peran', 1);   
     }

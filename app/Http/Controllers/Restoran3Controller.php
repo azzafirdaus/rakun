@@ -16,26 +16,26 @@ use App\Item3;
 use App\TransaksiBar;
 use Validator, Input, Redirect, Hash, Auth; 
 
-class RestoranController extends Controller{
+class Restoran3Controller extends Controller{
     
     public function restoran(){
         if(Periode::activeExist() == 1){
             $noGelang = Input::get('noGelang');
             
             if(Gelang::checkAvailable($noGelang) != 0) {
-                return view('restoran.menu')
+                return view('restoran3.menu')
                     ->with('noGelang', $noGelang);
             }   
-            return redirect('restoran')->withErrors("Nomor kartu pelanggan belum dipakai");
+            return redirect('restoran3')->withErrors("Nomor kartu pelanggan belum dipakai");
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');    
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');    
     }
 
     public function makanan(){
         if(Periode::activeExist() == 1){
             $noGelang = Input::get('noGelang');
             $saldo = Gelang::getSaldo($noGelang);
-            $itemList = Item::where('jenis', 'Makanan')->get();
+            $itemList = Item3::where('jenis', 'Makanan')->get();
             $pesanan = array();
 
             foreach ($itemList as $index => $item) {
@@ -49,12 +49,12 @@ class RestoranController extends Controller{
                 );
             }
 
-            return view('restoran.makanan-list')
+            return view('restoran3.makanan-list')
                     ->with('noGelang', $noGelang)
                     ->with('saldo', $saldo)
                     ->with('itemList', $pesanan);
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function makananReview(){
@@ -75,21 +75,21 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
-            return view('restoran.makanan-review')
+            return view('restoran3.makanan-review')
                 ->with('noGelang', $noGelang)
                 ->with('pesanan', $pesanan)
                 ->with('iditem', $iditem)
                 ->with('jumlahbeli', $jumlahbeli);    
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function makananDelete() {
@@ -112,26 +112,26 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
             if($pesanan != NULL){
-                return view('restoran.makanan-review')
+                return view('restoran3.makanan-review')
                     ->with('noGelang', $noGelang)
                     ->with('pesanan', $pesanan)
                     ->with('iditem', $iditem)
                     ->with('jumlahbeli', $jumlahbeli);    
             }else{
-                return view('restoran.menu')
+                return view('restoran3.menu')
                     ->with('noGelang', $noGelang);
             }
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function makananBeli(){
@@ -156,19 +156,19 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
-                                'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                                'nama' => Item3::getNama($id) . ' @ ' . Item3::getPrice($id),                      
+                                'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
-                        $total += Item::getPrice($id) * $jumlahbeli[$index];
+                        $total += Item3::getPrice($id) * $jumlahbeli[$index];
                     }
                 }
             
                 $saldo = Gelang::getSaldo($noGelang);
                 $sisa = $saldo - $total;
                 if($sisa < 0) {
-                    return view('restoran.makanan-list')
-                        ->with('itemList', Item::where('jenis', 'Makanan')->get())
+                    return view('restoran3.makanan-list')
+                        ->with('itemList', Item3::where('jenis', 'Makanan')->get())
                         ->with('jumlahbeli', $jumlahbeli)
                         ->with('id_item', $iditem)
                         ->with('noGelang', $noGelang)
@@ -179,12 +179,12 @@ class RestoranController extends Controller{
                 
                 foreach($iditem as $index => $id) {
                     if($jumlahbeli[$index] > 0){
-                        Item::kurangStock($id, $jumlahbeli[$index]);
+                        Item3::kurangStock($id, $jumlahbeli[$index]);
                         TransaksiBar::add($id, $jumlahbeli[$index], $noGelang);
                     }
                 }
 
-                return view('restoran.invoice')
+                return view('restoran3.invoice')
                     ->with('noGelang', Input::get('noGelang'))
                     ->with('transaksiBar', $pesanan)
                     ->with('totalTransaksiBar', $total)
@@ -195,14 +195,14 @@ class RestoranController extends Controller{
             }
 
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function minuman(){
         if(Periode::activeExist() == 1){
             $noGelang = Input::get('noGelang');
             $saldo = Gelang::getSaldo($noGelang);
-            $itemList = Item::where('jenis', 'Minuman')->get();
+            $itemList = Item3::where('jenis', 'Minuman')->get();
             $pesanan = array();
 
             foreach ($itemList as $index => $item) {
@@ -216,12 +216,12 @@ class RestoranController extends Controller{
                 );
             }
 
-            return view('restoran.minuman-list')
+            return view('restoran3.minuman-list')
                     ->with('noGelang', $noGelang)
                     ->with('saldo', $saldo)
                     ->with('itemList', $pesanan);
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function minumanReview(){
@@ -242,21 +242,21 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
-            return view('restoran.minuman-review')
+            return view('restoran3.minuman-review')
                 ->with('noGelang', $noGelang)
                 ->with('pesanan', $pesanan)
                 ->with('iditem', $iditem)
                 ->with('jumlahbeli', $jumlahbeli);    
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function minumanDelete() {
@@ -279,26 +279,26 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
             if($pesanan != NULL){
-                return view('restoran.minuman-review')
+                return view('restoran3.minuman-review')
                     ->with('noGelang', $noGelang)
                     ->with('pesanan', $pesanan)
                     ->with('iditem', $iditem)
                     ->with('jumlahbeli', $jumlahbeli);    
             }else{
-                return view('restoran.menu')
+                return view('restoran3.menu')
                     ->with('noGelang', $noGelang);
             }
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function minumanBeli(){
@@ -323,19 +323,19 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
-                                'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                                'nama' => Item3::getNama($id) . ' @ ' . Item3::getPrice($id),                      
+                                'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
-                        $total += Item::getPrice($id) * $jumlahbeli[$index];
+                        $total += Item3::getPrice($id) * $jumlahbeli[$index];
                     }
                 }
             
                 $saldo = Gelang::getSaldo($noGelang);
                 $sisa = $saldo - $total;
                 if($sisa < 0) {
-                    return view('restoran.minuman-list')
-                        ->with('itemList', Item::where('jenis', 'Minuman')->get())
+                    return view('restoran3.minuman-list')
+                        ->with('itemList', Item3::where('jenis', 'Minuman')->get())
                         ->with('jumlahbeli', $jumlahbeli)
                         ->with('id_item', $iditem)
                         ->with('noGelang', $noGelang)
@@ -346,12 +346,12 @@ class RestoranController extends Controller{
                 
                 foreach($iditem as $index => $id) {
                     if($jumlahbeli[$index] > 0){
-                        Item::kurangStock($id, $jumlahbeli[$index]);
+                        Item3::kurangStock($id, $jumlahbeli[$index]);
                         TransaksiBar::add($id, $jumlahbeli[$index], $noGelang);
                     }
                 }
 
-                return view('restoran.invoice')
+                return view('restoran3.invoice')
                     ->with('noGelang', Input::get('noGelang'))
                     ->with('transaksiBar', $pesanan)
                     ->with('totalTransaksiBar', $total)
@@ -362,14 +362,14 @@ class RestoranController extends Controller{
             }
 
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function rokok(){
         if(Periode::activeExist() == 1){
             $noGelang = Input::get('noGelang');
             $saldo = Gelang::getSaldo($noGelang);
-            $itemList = Item::where('jenis', 'Rokok')->get();
+            $itemList = Item3::where('jenis', 'Rokok')->get();
             $pesanan = array();
 
             foreach ($itemList as $index => $item) {
@@ -383,12 +383,12 @@ class RestoranController extends Controller{
                 );
             }
 
-            return view('restoran.rokok-list')
+            return view('restoran3.rokok-list')
                     ->with('noGelang', $noGelang)
                     ->with('saldo', $saldo)
                     ->with('itemList', $pesanan);
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function rokokReview(){
@@ -409,21 +409,21 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
-            return view('restoran.rokok-review')
+            return view('restoran3.rokok-review')
                 ->with('noGelang', $noGelang)
                 ->with('pesanan', $pesanan)
                 ->with('iditem', $iditem)
                 ->with('jumlahbeli', $jumlahbeli);    
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function rokokDelete() {
@@ -446,26 +446,26 @@ class RestoranController extends Controller{
                             'index' => $index,
                             'qty' => $jumlahbeli[$index],
                             'id_item' => $id,
-                            'nama' => Item::getNama($id),                      
-                            'price' => Item::getPrice($id),
-                            'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                            'nama' => Item3::getNama($id),                      
+                            'price' => Item3::getPrice($id),
+                            'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                         ]
                     );
-                    $total += Item::getPrice($id) * $jumlahbeli[$index];
+                    $total += Item3::getPrice($id) * $jumlahbeli[$index];
                 }
             }
             if($pesanan != NULL){
-                return view('restoran.rokok-review')
+                return view('restoran3.rokok-review')
                     ->with('noGelang', $noGelang)
                     ->with('pesanan', $pesanan)
                     ->with('iditem', $iditem)
                     ->with('jumlahbeli', $jumlahbeli);    
             }else{
-                return view('restoran.menu')
+                return view('restoran3.menu')
                     ->with('noGelang', $noGelang);
             }
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 
     public function rokokBeli(){
@@ -490,19 +490,19 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
-                                'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
+                                'nama' => Item3::getNama($id) . ' @ ' . Item3::getPrice($id),                      
+                                'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
-                        $total += Item::getPrice($id) * $jumlahbeli[$index];
+                        $total += Item3::getPrice($id) * $jumlahbeli[$index];
                     }
                 }
             
                 $saldo = Gelang::getSaldo($noGelang);
                 $sisa = $saldo - $total;
                 if($sisa < 0) {
-                    return view('restoran.rokok-list')
-                        ->with('itemList', Item::where('jenis', 'Rokok')->get())
+                    return view('restoran3.rokok-list')
+                        ->with('itemList', Item3::where('jenis', 'Rokok')->get())
                         ->with('jumlahbeli', $jumlahbeli)
                         ->with('id_item', $iditem)
                         ->with('noGelang', $noGelang)
@@ -513,12 +513,12 @@ class RestoranController extends Controller{
                 
                 foreach($iditem as $index => $id) {
                     if($jumlahbeli[$index] > 0){
-                        Item::kurangStock($id, $jumlahbeli[$index]);
+                        Item3::kurangStock($id, $jumlahbeli[$index]);
                         TransaksiBar::add($id, $jumlahbeli[$index], $noGelang);
                     }
                 }
 
-                return view('restoran.invoice')
+                return view('restoran3.invoice')
                     ->with('noGelang', Input::get('noGelang'))
                     ->with('transaksiBar', $pesanan)
                     ->with('totalTransaksiBar', $total)
@@ -529,6 +529,6 @@ class RestoranController extends Controller{
             }
 
         }
-        return redirect('restoran')->withErrors('Transaksi belum dibuka');
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
     }
 }

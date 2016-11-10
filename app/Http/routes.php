@@ -23,12 +23,68 @@ Route::group(array('prefix' => 'restoran'), function(){
 	Route::get('makanan', 'RestoranController@makanan');
 	Route::post('makanan', 'RestoranController@makananReview');
 	Route::post('makanan/order', 'RestoranController@makananBeli');
+	Route::post('makanan/delete', 'RestoranController@makananDelete');
 
 	Route::get('minuman', 'RestoranController@minuman');
-	Route::post('minuman', 'RestoranController@minuman');
+	Route::post('minuman', 'RestoranController@minumanReview');
+	Route::post('minuman/order', 'RestoranController@minumanBeli');
+	Route::post('minuman/delete', 'RestoranController@minumanDelete');
 
 	Route::get('rokok', 'RestoranController@rokok');
-	Route::post('rokok', 'RestoranController@rokok');
+	Route::post('rokok', 'RestoranController@rokokReview');
+	Route::post('rokok/order', 'RestoranController@rokokBeli');
+	Route::post('rokok/delete', 'RestoranController@rokokDelete');
+
+
+});
+
+Route::group(array('prefix' => 'restoran2'), function(){
+	Route::get('/', function(){
+        return View::make('restoran2.restoran');
+    });
+
+	Route::post('/', 'Restoran2Controller@restoran');
+	
+	Route::get('makanan', 'Restoran2Controller@makanan');
+	Route::post('makanan', 'Restoran2Controller@makananReview');
+	Route::post('makanan/order', 'Restoran2Controller@makananBeli');
+	Route::post('makanan/delete', 'Restoran2Controller@makananDelete');
+
+	Route::get('minuman', 'Restoran2Controller@minuman');
+	Route::post('minuman', 'Restoran2Controller@minumanReview');
+	Route::post('minuman/order', 'Restoran2Controller@minumanBeli');
+	Route::post('minuman/delete', 'Restoran2Controller@minumanDelete');
+
+	Route::get('rokok', 'Restoran2Controller@rokok');
+	Route::post('rokok', 'Restoran2Controller@rokokReview');
+	Route::post('rokok/order', 'Restoran2Controller@rokokBeli');
+	Route::post('rokok/delete', 'Restoran2Controller@rokokDelete');
+
+
+});
+
+Route::group(array('prefix' => 'restoran3'), function(){
+	Route::get('/', function(){
+        return View::make('restoran3.restoran');
+    });
+
+	Route::post('/', 'Restoran3Controller@restoran');
+	
+	Route::get('makanan', 'Restoran3Controller@makanan');
+	Route::post('makanan', 'Restoran3Controller@makananReview');
+	Route::post('makanan/order', 'Restoran3Controller@makananBeli');
+	Route::post('makanan/delete', 'Restoran3Controller@makananDelete');
+
+	Route::get('minuman', 'Restoran3Controller@minuman');
+	Route::post('minuman', 'Restoran3Controller@minumanReview');
+	Route::post('minuman/order', 'Restoran3Controller@minumanBeli');
+	Route::post('minuman/delete', 'Restoran3Controller@minumanDelete');
+
+	Route::get('rokok', 'Restoran3Controller@rokok');
+	Route::post('rokok', 'Restoran3Controller@rokokReview');
+	Route::post('rokok/order', 'Restoran3Controller@rokokBeli');
+	Route::post('rokok/delete', 'Restoran3Controller@rokokDelete');
+
 
 });
 

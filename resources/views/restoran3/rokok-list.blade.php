@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Menu Restoran</title>
+        <title>Menu Restoran3</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -111,7 +111,7 @@
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
         <div class="content">
-            <form action="{{ url('restoran/makanan') }}" method="post" id="formnya">
+            <form action="{{ url('restoran3/rokok') }}" method="post" id="formnya">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="noGelang" value="{{ $noGelang }}">
             <input type="hidden" name="saldo" value="{{ $saldo }}" id="saldo">
@@ -176,7 +176,7 @@
                 </div>
                 <!-- END CRUD TABLE -->
                 <div>           
-                    <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-primary">
+                    <button type="submit" formaction="{{ url('restoran3') }}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
                     </button>
                     <button type="button" class="submission btn btn-success pull-right">

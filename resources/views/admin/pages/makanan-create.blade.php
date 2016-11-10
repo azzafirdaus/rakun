@@ -52,6 +52,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Jenis</label>
+                                <div class="col-md-3 control-label">                 
+                                    <select name="jenis" class="form-control">
+                                            <option></option>
+                                            <option>Makanan</option>
+                                            <option>Minuman</option>
+                                            <option>Rokok</option>
+                                    </select>
+                                </div>
+                            </div>
+
                          </div>
 
                         <div class="form-actions fluid">

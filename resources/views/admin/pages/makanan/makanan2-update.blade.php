@@ -41,6 +41,17 @@
                                     <input type="text" class="form-control" placeholder="Enter text" value="{{ $price }}" name="price">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Jenis</label>
+                                <div class="col-md-3 control-label">                 
+                                    <select name="jenis" class="form-control" value="{{ $jenis }}">
+                                            <option></option>
+                                            <option>Makanan</option>
+                                            <option>Minuman</option>
+                                            <option>Rokok</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">

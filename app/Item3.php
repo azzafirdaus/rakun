@@ -11,13 +11,14 @@ class Item3 extends Model
     protected $table = 'item_3';
     public $timestamps = false;
     
-    public static function add($nama, $price, $id) {
+    public static function add($nama, $price, $id, $jenis) {
 
         $item = new Item3;
 
         $item->id_item = $id;
         $item->nama = $nama;
         $item->price = $price;
+        $item->jenis = $jenis;
 
         $item->save();
     }
@@ -34,6 +35,10 @@ class Item3 extends Model
         return DB::table('item_3')->where('id_item', $id)->pluck('price');;
     }
     
+    public static function getJenis($id) {
+        return DB::table('item_3')->where('id_item', $id)->pluck('jenis');;
+    }
+
     public static function getPriceWithName($name) {
         return DB::table('item_3')->where('nama', $name)->pluck('price');;
     }
@@ -42,6 +47,10 @@ class Item3 extends Model
         return DB::table('item_3')->where('nama', $name)->pluck('stock');;
     }
     
+    public static function getStockById($id) {
+        return DB::table('item_3')->where('id_item', $id)->pluck('stock');;
+    }
+
     public static function updateNama($id, $nama) {
         DB::table('item_3')->where('id_item', $id)->update(['nama' => $nama]);;
     }
@@ -49,7 +58,11 @@ class Item3 extends Model
     public static function updatePrice($id, $price) {
         DB::table('item_3')->where('id_item', $id)->update(['price' => $price]);;
     }
-                                        
+    
+    public static function updateJenis($id, $jenis) {
+        DB::table('item_3')->where('id_item', $id)->update(['jenis' => $jenis]);;
+    }
+
     public static function deleteItem($id) {        
         DB::table('item_3')->where('id_item', $id)->delete();
     }
@@ -79,4 +92,9 @@ class Item3 extends Model
         $saldo = Item3::getStock($nama);
         DB::table('item_3')->where('nama', $nama)->update(['stock' => $saldo - $jumlah]);
     } 
+
+    public static function kurangStock($id, $jumlah) {
+        $stock = Item3::getStockById($id);
+        DB::table('item_3')->where('id_item', $id)->update(['stock' => $stock - $jumlah]);
+    }
 }

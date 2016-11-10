@@ -111,7 +111,7 @@
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
         <div class="content">
-            <form action="{{ url('restoran/makanan') }}" method="post" id="formnya">
+            <form action="{{ url('restoran/minuman') }}" method="post" id="formnya">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="noGelang" value="{{ $noGelang }}">
             <input type="hidden" name="saldo" value="{{ $saldo }}" id="saldo">

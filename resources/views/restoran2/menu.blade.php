@@ -35,7 +35,7 @@
         <br>
 
         <div class="home-button">
-            <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
+            <form class="terapis-form" action="{{ url('restoran2/makanan') }}" method="get"> 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="noGelang" value="{{ $noGelang }}">
 
@@ -51,19 +51,19 @@
                 </div>
 
                 <div>
-                    <button type="submit" formaction="{{ url('restoran/minuman') }}">Minuman</button>
+                    <button type="submit" formaction="{{ url('restoran2/minuman') }}">Minuman</button>
                 </div>
 
                 <div>
-                    <button type="submit" formaction="{{ url('restoran/rokok') }}">Rokok</button>                
+                    <button type="submit" formaction="{{ url('restoran2/rokok') }}">Rokok</button>                
                 </div>
             </form>
         </div>
 
-        <button type="button" onclick="location.href = '{{ url('restoran') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
+        
+        <button type="button" onclick="location.href = '{{ url('restoran2') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
             <span class="glyphicon glyphicon-chevron-left"></span> Keluar
         </button>
-        
         <!-- END LOGIN -->
     </body>
 <!-- END BODY -->
