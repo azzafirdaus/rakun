@@ -35,6 +35,8 @@ Route::group(array('prefix' => 'restoran'), function(){
 	Route::post('rokok/order', 'RestoranController@rokokBeli');
 	Route::post('rokok/delete', 'RestoranController@rokokDelete');
 
+	Route::get('ob', 'RestoranController@ob');
+	Route::post('ob', 'RestoranController@obOrder');
 
 });
 
@@ -60,7 +62,8 @@ Route::group(array('prefix' => 'restoran2'), function(){
 	Route::post('rokok/order', 'Restoran2Controller@rokokBeli');
 	Route::post('rokok/delete', 'Restoran2Controller@rokokDelete');
 
-
+	Route::get('ob', 'Restoran2Controller@ob');
+	Route::post('ob', 'Restoran2Controller@obOrder');
 });
 
 Route::group(array('prefix' => 'restoran3'), function(){
@@ -85,7 +88,8 @@ Route::group(array('prefix' => 'restoran3'), function(){
 	Route::post('rokok/order', 'Restoran3Controller@rokokBeli');
 	Route::post('rokok/delete', 'Restoran3Controller@rokokDelete');
 
-
+	Route::get('ob', 'Restoran3Controller@ob');
+	Route::post('ob', 'Restoran3Controller@obOrder');
 });
 
 

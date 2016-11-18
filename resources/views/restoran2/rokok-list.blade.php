@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Menu Restoran2</title>
+        <title>Menu Restoran 2</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -30,14 +30,14 @@
     
     <style type="text/css">
         .infototal{
-            width:300px;
-            height:80px;
+            width:450px;
+            height:70px;
             background:white;
             border-color: black;
             border-width: 2px;
             position:fixed;
-            top:25%;
-            left:50%;
+            top:20%;
+            left:45%;
             margin-top:-150px; /* negative half the size of height */
             margin-left:-150px; /* negative half the size of width */
         }
@@ -85,10 +85,10 @@
             font-size: 30px;
         }
         .btn-circle.btn-lg {
-            width: 50px;
-            height: 50px;
-            padding: 10px 16px;
-            font-size: 18px;
+            width: 30px;
+            height: 30px;
+            padding: 5px 8px;
+            font-size: 9px;
             line-height: 1.33;
             border-radius: 25px;
         }
@@ -104,88 +104,111 @@
     
     <!-- BEGIN BODY -->
     <body class="login">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-<!--            <img src="assets/img/logo.png" alt=""/>-->
-        </div>
-        <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
-        <div class="content">
-            <form action="{{ url('restoran2/rokok') }}" method="post" id="formnya">
+        <form action="{{ url('restoran2/rokok') }}" method="post" id="formnya">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="noGelang" value="{{ $noGelang }}">
             <input type="hidden" name="saldo" value="{{ $saldo }}" id="saldo">
+            
+            @foreach ($errors->all() as $error)
+                <li style='font-size: 16px; color: red'>{{ $error }}</li>
+            @endforeach
+
             <div class="infototal" style="display:none">
                 <table>
                     <tr>
                         <td>Total: </td>
                         <td>Rp. </td>
-                        <td><input style="width: 150px;" type="text" id="totaltampil" value="0" disabled></td>
-                        <td><input style="width: 150px;" type="hidden" id="totaldinamis" name="totaldinamis" value="0" disabled></td>
+                        <td><input style="width: 200px;" type="text" id="totaltampil" value="{{ isset($totaldinamis)? $totaldinamis: 0 }}" disabled></td>
+                        <td>
+                            <button type="button" class="submission btn btn-success pull-right">
+                                <i class="fa fa-credit-card"></i> Order 
+                            </button>
+                        </td>
+                        <td><input style="width: 150px;" type="hidden" id="totaldinamis" name="totaldinamis" value="{{ isset($totaldinamis)? $totaldinamis: 0 }}" disabled></td>
                     </tr>
                 </table>
-                
             </div>
-            <!-- BEGIN LOGIN FORM -->
+            <div class="content" style="width: 420px; @if(isset($itemList[14]))float: left; margin: 70px 3px 3px 3px; @else margin: 70px auto 3px; @endif" >
                 <!-- BEGIN CRUD TABLE -->
-                @foreach ($errors->all() as $error)
-                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
-                @endforeach
-                <div>
-                    <div>
-                        <div>
-                            <table class="table table-hover" style="font-size:20px;">
-                                <thead>
-                                    <tr>
-                                        <th style="font-size:20px;">
-                                            No.
-                                        </th>
-                                        <th style="font-size:20px;">
-                                            Nama
-                                        </th>
-                                        <th style="font-size:20px;">
-                                            Jumlah
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <p type="hidden"><?php $count = 1; ?></p>
-                                    
-                                    @foreach($itemList as $index => $item)
-                                    <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
-                                    <tr>
-                                        <td>
-                                             {{ $count++ }}
-                                        </td>
-                                        <td>
-                                             {{ $item['nama'] }}<br>
-                                             Rp. {{ number_format($item['price']) }}
-                                        </td>
-                                        <td>
-                                            <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
-                                            <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $item['stock'] }}" name="jumlahbeli[]" harga="{{ $item['price'] }}" style="width: 40px; text-align: center;" />
-                                            <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
-                                        </td>
-                                    </tr>
-                                    @endforeach   
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <table class="table table-hover" style="font-size:12px;">
+                    <tbody>                        
+                        @foreach(array_slice($itemList, 0, 13) as $index => $item)
+                        <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
+                        <tr>
+                            <td>
+                                 {{ $item['nama'] }}<br>
+                                 Rp. {{ number_format($item['price']) }}
+                            </td>
+                            <td>
+                                <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
+                                <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $item['stock'] }}" name="jumlahbeli[]" harga="{{ $item['price'] }}" style="width: 40px; text-align: center;" />
+                                <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
+                            </td>
+                        </tr>
+                        @endforeach   
+                    </tbody>
+                </table>
+            </div>
+            @if(isset($itemList[14]))
+            <div class="content" style="float: left; width: 420px; margin: 70px 3px 3px 3px;">
+                <!-- BEGIN CRUD TABLE -->
+                <table class="table table-hover" style="font-size:12px;">
+                    <tbody>
+                        <p type="hidden"><?php $count = 1; ?></p>
+                        
+                        @foreach(array_slice($itemList, 14, 13) as $index => $item)
+                        <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
+                        <tr>
+                            <td>
+                                 {{ $item['nama'] }}<br>
+                                 Rp. {{ number_format($item['price']) }}
+                            </td>
+                            <td>
+                                <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
+                                <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $item['stock'] }}" name="jumlahbeli[]" harga="{{ $item['price'] }}" style="width: 40px; text-align: center;" />
+                                <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
+                            </td>
+                        </tr>
+                        @endforeach   
+                    </tbody>
+                </table>
                 <!-- END CRUD TABLE -->
-                <div>           
-                    <button type="submit" formaction="{{ url('restoran2') }}" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
-                    </button>
-                    <button type="button" class="submission btn btn-success pull-right">
-                        <i class="fa fa-credit-card"></i> Order 
-                    </button>
-                </div>
-            <!-- END LOGIN FORM -->
-            </form>
-        </div>
+            </div>
+            @endif
+            @if(isset($itemList[27]))
+            <div class="content" style="float: left; width: 420px; margin: 70px 3px 3px 3px;">
+                <!-- BEGIN CRUD TABLE -->
+                <table class="table table-hover" style="font-size:12px;">
+                    <tbody>
+                        <p type="hidden"><?php $count = 1; ?></p>
+                        
+                        @foreach(array_slice($itemList, 27, 13) as $index => $item)
+                        <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
+                        <tr>
+                            <td>
+                                 {{ $item['nama'] }}<br>
+                                 Rp. {{ number_format($item['price']) }}
+                            </td>
+                            <td>
+                                <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
+                                <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $item['stock'] }}" name="jumlahbeli[]" harga="{{ $item['price'] }}" style="width: 40px; text-align: center;" />
+                                <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
+                            </td>
+                        </tr>
+                        @endforeach   
+                    </tbody>
+                </table>
+                <!-- END CRUD TABLE -->
+            </div>
+            @endif
+            <div>           
+                <button type="submit" formaction="{{ url('restoran2') }}" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
+                </button>
+            </div>
+        </form>
+
         <div id="dialogoverlay"></div>
         <div id="dialogbox">
             <div>

@@ -31,6 +31,87 @@ class Restoran3Controller extends Controller{
         return redirect('restoran3')->withErrors('Transaksi belum dibuka');    
     }
 
+    public function ob(){
+        if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
+            $saldo = Gelang::getSaldo($noGelang);
+            $itemList = Item3::where('jenis', 'OB')->get();
+            $pesanan = array();
+
+            foreach ($itemList as $index => $item) {
+                array_push($pesanan, 
+                    [
+                        'id_item' => $item->id_item,
+                        'nama' => $item->nama,
+                        'stock' => $item->stock,
+                        'price' => $item->price                      
+                    ]
+                );
+            }
+
+            return view('restoran3.ob')
+                    ->with('noGelang', $noGelang)
+                    ->with('saldo', $saldo)
+                    ->with('itemList', $pesanan);
+        }
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
+    }
+
+    public function obOrder(){
+        if(Periode::activeExist() == 1){
+            $noGelang = Input::get('noGelang');
+
+            $pesanan = array();
+
+            $iditem = Input::get('id_item');
+            $jumlahbeli = Input::get('jumlahbeli');
+            
+            $jumlah = 0;
+            foreach($jumlahbeli as $jb){
+                $jumlah += $jb;
+            }
+
+            if($jumlah > 0){
+                $total = 0;
+
+                foreach($iditem as $index => $id) {
+                    if($jumlahbeli[$index] > 0){
+                        array_push($pesanan, 
+                            [
+                                'qty' => $jumlahbeli[$index],
+                                'nama' => Item3::getNama($id) . ' @ ' . Item3::getPrice($id),                      
+                                'jumlah' => Item3::getPrice($id) * $jumlahbeli[$index]
+                            ]
+                        );
+                        $total += Item3::getPrice($id) * $jumlahbeli[$index];
+                    }
+                }
+            
+                $saldo = Gelang::getSaldo($noGelang);
+                
+                Gelang::minSaldo(Input::get('noGelang'), $total);
+                
+                foreach($iditem as $index => $id) {
+                    if($jumlahbeli[$index] > 0){
+                        Item3::kurangStock($id, $jumlahbeli[$index]);
+                        TransaksiBar::add($id, $jumlahbeli[$index], $noGelang);
+                    }
+                }
+
+                return view('restoran3.invoice')
+                    ->with('noGelang', Input::get('noGelang'))
+                    ->with('transaksiBar', $pesanan)
+                    ->with('totalTransaksiBar', $total)
+                    ->with('transaksiBar1', $iditem)
+                    ->with('transaksiBar2', $jumlahbeli)
+                    ->with('sisa' , Gelang::getSaldo($noGelang))
+                    ->with('saldo', $saldo);
+            }
+
+        }
+        return redirect('restoran3')->withErrors('Transaksi belum dibuka');
+    }
+
     public function makanan(){
         if(Periode::activeExist() == 1){
             $noGelang = Input::get('noGelang');

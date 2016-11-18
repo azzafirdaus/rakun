@@ -33,36 +33,39 @@
     <!-- BEGIN BODY -->
     <body class="terapis">
         <br>
+        <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="noGelang" value="{{ $noGelang }}">
 
-        <div class="home-button">
-            <form class="terapis-form" action="{{ url('restoran/makanan') }}" method="get"> 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="noGelang" value="{{ $noGelang }}">
-
-                <!-- <h3 class="form-title" style='font-size: 38px;'>Terapis Naik</h3> -->
-                @foreach ($errors->all() as $error)
-                    <li style='font-size: 16px; color: white'>{{ $error }}</li>
-                @endforeach
- 
-                <p style='font-size: 16px; color: white'>{{ isset($success)? $success: '' }}</p>
+            <div class="home-button">
                 
-                <div>
-                    <button type="submit">Makanan</button>
-                </div>
+                    <!-- <h3 class="form-title" style='font-size: 38px;'>Terapis Naik</h3> -->
+                    @foreach ($errors->all() as $error)
+                        <li style='font-size: 16px; color: white'>{{ $error }}</li>
+                    @endforeach
+     
+                    <p style='font-size: 16px; color: white'>{{ isset($success)? $success: '' }}</p>
+                    
+                    <div>
+                        <button type="submit">Makanan</button>
+                    </div>
 
-                <div>
-                    <button type="submit" formaction="{{ url('restoran/minuman') }}">Minuman</button>
-                </div>
+                    <div>
+                        <button type="submit" formaction="{{ url('restoran/minuman') }}">Minuman</button>
+                    </div>
 
-                <div>
-                    <button type="submit" formaction="{{ url('restoran/rokok') }}">Rokok</button>                
-                </div>
-            </form>
-        </div>
+                    <div>
+                        <button type="submit" formaction="{{ url('restoran/rokok') }}">Rokok</button>                
+                    </div>
+            </div>
 
-        <button type="button" onclick="location.href = '{{ url('restoran') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
-            <span class="glyphicon glyphicon-chevron-left"></span> Keluar
-        </button>
+            <button type="button" onclick="location.href = '{{ url('restoran') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
+                <span class="glyphicon glyphicon-chevron-left"></span> Keluar
+            </button>
+            <button type="submit" formaction="{{ url('restoran/ob') }}" class="btn btn-primary" style="margin-right: 30px; padding: 10px 40px; font-size: 28px; float: right;">
+                OB
+            </button>
+        </form>
         
         <!-- END LOGIN -->
     </body>

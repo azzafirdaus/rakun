@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Restoran3 Auto Menu</title>
+        <title>Restoran 3 Auto Menu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -33,43 +33,46 @@
     <!-- BEGIN BODY -->
     <body class="terapis">
         <br>
+        <form class="terapis-form" action="{{ url('restoran3/makanan') }}" method="get"> 
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="noGelang" value="{{ $noGelang }}">
 
-        <div class="home-button">
-            <form class="terapis-form" action="{{ url('restoran3/makanan') }}" method="get"> 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="noGelang" value="{{ $noGelang }}">
-
-                <!-- <h3 class="form-title" style='font-size: 38px;'>Terapis Naik</h3> -->
-                @foreach ($errors->all() as $error)
-                    <li style='font-size: 16px; color: white'>{{ $error }}</li>
-                @endforeach
- 
-                <p style='font-size: 16px; color: white'>{{ isset($success)? $success: '' }}</p>
+            <div class="home-button">
                 
-                <div>
-                    <button type="submit">Makanan</button>
-                </div>
+                    <!-- <h3 class="form-title" style='font-size: 38px;'>Terapis Naik</h3> -->
+                    @foreach ($errors->all() as $error)
+                        <li style='font-size: 16px; color: white'>{{ $error }}</li>
+                    @endforeach
+     
+                    <p style='font-size: 16px; color: white'>{{ isset($success)? $success: '' }}</p>
+                    
+                    <div>
+                        <button type="submit">Makanan</button>
+                    </div>
 
-                <div>
-                    <button type="submit" formaction="{{ url('restoran3/minuman') }}">Minuman</button>
-                </div>
+                    <div>
+                        <button type="submit" formaction="{{ url('restoran3/minuman') }}">Minuman</button>
+                    </div>
 
-                <div>
-                    <button type="submit" formaction="{{ url('restoran3/rokok') }}">Rokok</button>                
-                </div>
-            </form>
-        </div>
+                    <div>
+                        <button type="submit" formaction="{{ url('restoran3/rokok') }}">Rokok</button>                
+                    </div>
+            </div>
 
+            <button type="button" onclick="location.href = '{{ url('restoran3') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
+                <span class="glyphicon glyphicon-chevron-left"></span> Keluar
+            </button>
+            <button type="submit" formaction="{{ url('restoran3/ob') }}" class="btn btn-primary" style="margin-right: 30px; padding: 10px 40px; font-size: 28px; float: right;">
+                OB
+            </button>
+        </form>
         
-        <button type="button" onclick="location.href = '{{ url('restoran') }}';" class="btn btn-primary" style="margin-left: 30px; padding: 20px; font-size: 32px">
-            <span class="glyphicon glyphicon-chevron-left"></span> Keluar
-        </button>
         <!-- END LOGIN -->
     </body>
 <!-- END BODY -->
 <script type="text/javascript">
     window.onload = function() {
-        setTimeout(function(){ location.href = "{{ url('restoran') }} "; }, 8000);
+        setTimeout(function(){ location.href = "{{ url('restoran3') }} "; }, 8000);
     };
 </script>
 </html>
