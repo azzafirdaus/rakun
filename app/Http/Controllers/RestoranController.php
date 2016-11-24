@@ -14,7 +14,7 @@ use App\Item;
 use App\Item2;
 use App\Item3;
 use App\TransaksiBar;
-use Validator, Input, Redirect, Hash, Auth; 
+use Validator, Input, Redirect, Hash, Auth, Session; 
 
 class RestoranController extends Controller{
     
@@ -23,6 +23,13 @@ class RestoranController extends Controller{
             $noGelang = Input::get('noGelang');
             
             if(Gelang::checkAvailable($noGelang) != 0) {
+
+                Session::put('cart', array_add($cart = Session::get('cart'), 'tes', 10));
+                Session::put('cart', array_add($cart = Session::get('cart'), 'tes2', 12));
+                Session::put('cart', array_add($cart = Session::get('cart'), 'tes3', 13));
+
+                var_dump(Session::get('cart'));
+
                 return view('restoran.menu')
                     ->with('noGelang', $noGelang);
             }   
@@ -120,6 +127,8 @@ class RestoranController extends Controller{
             $itemList = Item::where('jenis', 'Makanan')->get();
             $pesanan = array();
 
+            Session::get('cart');
+
             foreach ($itemList as $index => $item) {
                 array_push($pesanan, 
                     [
@@ -130,6 +139,8 @@ class RestoranController extends Controller{
                     ]
                 );
             }
+
+
 
             return view('restoran.makanan-list')
                     ->with('noGelang', $noGelang)
