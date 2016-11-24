@@ -79,7 +79,7 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
+                                'nama' => Item::getNama($id),                      
                                 'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
@@ -105,7 +105,8 @@ class RestoranController extends Controller{
                     ->with('transaksiBar1', $iditem)
                     ->with('transaksiBar2', $jumlahbeli)
                     ->with('sisa' , Gelang::getSaldo($noGelang))
-                    ->with('saldo', $saldo);
+                    ->with('saldo', $saldo)
+                    ->with('date', date('Y-m-d H:i:s'));
             }
 
         }
@@ -237,7 +238,7 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
+                                'nama' => Item::getNama($id),                      
                                 'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
@@ -272,7 +273,8 @@ class RestoranController extends Controller{
                     ->with('transaksiBar1', $iditem)
                     ->with('transaksiBar2', $jumlahbeli)
                     ->with('sisa' , Gelang::getSaldo($noGelang))
-                    ->with('saldo', $saldo);
+                    ->with('saldo', $saldo)
+                    ->with('date', date('Y-m-d H:i:s'));
             }
 
         }
@@ -404,7 +406,7 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
+                                'nama' => Item::getNama($id),                      
                                 'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
@@ -439,7 +441,8 @@ class RestoranController extends Controller{
                     ->with('transaksiBar1', $iditem)
                     ->with('transaksiBar2', $jumlahbeli)
                     ->with('sisa' , Gelang::getSaldo($noGelang))
-                    ->with('saldo', $saldo);
+                    ->with('saldo', $saldo)
+                    ->with('date', date('Y-m-d H:i:s'));
             }
 
         }
@@ -571,7 +574,7 @@ class RestoranController extends Controller{
                         array_push($pesanan, 
                             [
                                 'qty' => $jumlahbeli[$index],
-                                'nama' => Item::getNama($id) . ' @ ' . Item::getPrice($id),                      
+                                'nama' => Item::getNama($id),                      
                                 'jumlah' => Item::getPrice($id) * $jumlahbeli[$index]
                             ]
                         );
@@ -606,7 +609,8 @@ class RestoranController extends Controller{
                     ->with('transaksiBar1', $iditem)
                     ->with('transaksiBar2', $jumlahbeli)
                     ->with('sisa' , Gelang::getSaldo($noGelang))
-                    ->with('saldo', $saldo);
+                    ->with('saldo', $saldo)
+                    ->with('date', date('Y-m-d H:i:s'));
             }
 
         }

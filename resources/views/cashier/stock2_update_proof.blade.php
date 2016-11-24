@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Stock 2 Update</title>
+        <title>Stock 2 Menu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -24,74 +24,62 @@
         <link href="{{ asset('assets/css/style-responsive.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/terapis.css') }}" rel="stylesheet">
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico"/>
     </head>
     
     <!-- BEGIN BODY -->
-    <body class="login">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-<!--            <img src="assets/img/logo.png" alt=""/>-->
-        </div>
-        <!-- END LOGO -->
-        <!-- BEGIN LOGIN -->
-        <div class="content">
-            <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" method="post" action="{{ url('cashier_stock2_print') }}">
+    <body class="terapis">
+
+        <div class="home-button">
+            <form class="terapis-form" method="post" action="{{ url('cashier_stock2_print') }}" > 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <h3 class="form-title hidden-print" style='font-size: 38px;'>Stock 2 Update</h3>
 
-                    
-                <!-- BEGIN CRUD TABLE -->
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="">
-                    <table class="table table-hover" style="width: 250px;">
+                <br>    
+                <p class="hidden-print" style='font-size: 50px; color: white'>Stok</p>
+                <p class="hidden-print" style='font-size: 50px; color: white'>Berhasil di update</p>
+                <ul><?='<span style="font-size: 16px; color: red">'.Session::get('successMsg').'</span>'?></ul>
 
-                        <thead>
-                        <tr>
-                            <th style="">
-                                 Id Item
-                            </th>
-                            <th style="">
-                                Nama Item
-                            </th>
-                            <th>
-                                Jumlah
-                            </th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                          
-                        <tr>
-                            <td>
-                                {{ $id }}
-                            </td>
-                            <td>
-                                {{ $nama }}
-                            </td>
-                            <td>
-                                {{ $jumlah }}
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                    </table>
+                <div class="col-md-6 col-md-offset-4" id="tagihan">
+                    <br>
+                    <div>
+                        <table class="table" style="width:250px; color: black; text-align: left">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        ID Item
+                                    </td>
+                                    <td>
+                                        : {{ $id }}
+                                    </td>
+                                </tr>
+                                <tr>    
+                                    <td>
+                                        Nama Item 
+                                    </td>
+                                    <td>
+                                        : {{ $nama }}
+                                    </td>
+                                </tr>   
+                                <tr>    
+                                    <td>
+                                        Jumlah
+                                    </td>
+                                    <td>
+                                        : {{ $jumlah }}
+                                    </td>
+                                </tr>   
+                            </tbody>
+                        </table>
+                        <br>
                     </div>
-                    
                 </div>
-                <!-- END CRUD TABLE -->
-                <div class="form-actions hidden-print">
-                    <button type="submit" class="btn btn-success pull-right" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                <div class="hidden-print col-md-6 col-md-offset-2">
+                    <button style="padding: 10px;" type="submit" class="btn btn-success pull-right" onclick="window.print();">Print</button>
                 </div>
             </form>
-            <!-- END LOGIN FORM -->
         </div>
-        <!-- END LOGIN -->
     </body>
-<!-- END BODY -->
 </html>

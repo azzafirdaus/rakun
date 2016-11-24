@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Invoice Restoran</title>
+        <title>Restoran Auto Menu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -24,114 +24,70 @@
         <link href="{{ asset('assets/css/style-responsive.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/terapis.css') }}" rel="stylesheet">
         <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
     </head>
     
     <!-- BEGIN BODY -->
-    <body class="login">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-        </div>
-        <!-- END LOGO -->
-        <!-- BEGIN LOGIN -->
-        <div class="content">
-            <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" action="{{ url('restoran') }}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <h3 class="form-title hidden-print" style='font-size: 38px;'>Invoice Restoran</h3>
-                <br>
-                <div class="col-md-6 col-md-offset-3" id="tagihan">
-                    <div>
-                        <span>No. Kartu : {{ $noGelang }}</span>
-                    </div>
-                    <br>
-                    <div>
-                        <table class="table table-hover" style="width:250px">
-                            <thead>
-                                <tr>
-                                    <th>
-                                         Qty.
-                                    </th>
-                                    <th>
-                                         Nama
-                                    </th>
-                                    <th>
-                                         Jumlah
-                                    </th>
+    <body class="terapis">
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach($transaksiBar as $datanya)
-                                <tr>
-                                    <td>
-                                         {{ $datanya['qty'] }}
-                                    </td>
-                                    <td>
-                                         {{ $datanya['nama'] }}
-                                    </td>
-                                    <td>
-                                         Rp. {{ number_format($datanya['jumlah']) }}
-                                    </td>
-                                </tr>    
-                                @endforeach 
-                                
-                                <tr class="blank_row">
-                                    <td colspan="3"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <strong class="customFontSize">Total</strong>
-                                    </td>
-                                    <td>
-                                        <strong class="customFontSize"> Rp. {{ number_format($totalTransaksiBar) }} </strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <strong class="customFontSize">Saldo Sebelum</strong>
-                                    </td>
-                                    <td>
-                                        <strong class="customFontSize"> Rp. {{ number_format($saldo) }} </strong>
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <td colspan="2">
-                                        <strong class="customFontSize">Sisa Saldo</strong>
-                                    </td>
-                                    <td>
-                                        <strong class="customFontSize"> Rp. {{ number_format($sisa) }} </strong>
-                                    </td>
-                                </tr>        
-                            </tbody>
-                        </table>
-                    <br>
-				</div>
-                </div>
-                @foreach($transaksiBar1 as $value1)
-                <input type="hidden" name="id_item[]" value="{{ $value1 }}">
-                @endforeach
-                @foreach($transaksiBar2 as $value2)
-                <input type="hidden" name="jumlahbeli[]" value="{{ $value2 }}">
-                @endforeach
-                <div class="form-actions hidden-print">
-                    <input class="hidden" name="noGelang" value="{{ $noGelang }}">
-                    <input class="hidden" name="harga" value="{{ $totalTransaksiBar }}">
-                    <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
-                    </button>
-                    <div class="pull-right">
-                        <button type="submit" formaction="{{ url('restoran') }}" class="btn btn-success" onclick="window.print();">
-                            <span class="glyphicon glyphicon-check"></span> Print Invoice
-                        </button>
-                    </div>
-                </div>
+        <div class="home-button">
+            <form class="terapis-form hidden-print"> 
+
+                <br>    
+                <p style='font-size: 50px; color: white'>Pembayaran</p>
+                <p style='font-size: 50px; color: white'>Berhasil Dilakukan</p>
+                <ul><?='<span style="font-size: 16px; color: red">'.Session::get('successMsg').'</span>'?></ul>
+
             </form>
-            <!-- END LOGIN FORM -->
+
+            <div class="col-md-6 col-md-offset-3" id="tagihan">
+                <br>
+                <div>
+                    <table class="table" style="width:250px; color: white; text-align: left">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    No. Kartu 
+                                </td>
+                                <td>
+                                    : {{ $noGelang }}
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td>
+                                    Tanggal 
+                                </td>
+                                <td>
+                                    : {{ $date }}
+                                </td>
+                            </tr>   
+                            @foreach($transaksiBar as $datanya)
+                            <tr>    
+                                <td>
+                                    Nama
+                                </td>
+                                <td>
+                                    : {{ $datanya['nama'] }} @ <b style="font-size: 20px;">{{ $datanya['qty'] }}</b>
+                                </td>
+                            </tr>   
+                            @endforeach     
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
         </div>
+
+    <script>
+        window.onload = function() {
+            setTimeout(function(){ window.print(); }, 2000);
+            setTimeout(function(){ location.href = "{{ url('restoran') }} "; }, 2000);
+        };
+    </script>
+
         <!-- END LOGIN -->
     </body>
 <!-- END BODY -->

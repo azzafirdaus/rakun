@@ -92,6 +92,11 @@
             line-height: 1.33;
             border-radius: 25px;
         }
+        input
+        {
+            background: transparent;
+            border: none;
+        }
 
     </style>
 
@@ -99,7 +104,14 @@
     
     <!-- BEGIN BODY -->
     <body class="login">
-        <form action="{{ url('restoran2/ob') }}" method="post" id="formnya">
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+<!--            <img src="assets/img/logo.png" alt=""/>-->
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <form action="{{ url('restoran2/ob') }}" method="post" id="formnya">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="noGelang" value="{{ $noGelang }}">
             <input type="hidden" name="saldo" value="{{ $saldo }}" id="saldo">
@@ -114,53 +126,57 @@
                 </table>
                 
             </div>
-
-            <div class="content" style="width: 400px; margin: 100px auto;">
-                <!-- BEGIN LOGIN FORM -->
-                    <!-- BEGIN CRUD TABLE -->
-                    @foreach ($errors->all() as $error)
-                        <li style='font-size: 16px; color: red'>{{ $error }}</li>
-                    @endforeach
+            <!-- BEGIN LOGIN FORM -->
+                <!-- BEGIN CRUD TABLE -->
+                @foreach ($errors->all() as $error)
+                    <li style='font-size: 16px; color: red'>{{ $error }}</li>
+                @endforeach
+                <div>
                     <div>
-                        <table class="table table-hover" style="font-size:20px;">
-                            <tbody>
-                                @foreach($itemList as $index => $item)
-                                <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
-                                <tr>
-                                    <td>
-                                         {{ $item['nama'] }}<br>
-                                         Rp. {{ number_format($item['price']) }}
-                                    </td>
-                                    <td >
-                                        <!-- <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button> -->
-                                        <select type="number" 
-                                            name="jumlahbeli[]" 
-                                            harga="{{ $item['price'] }}" 
-                                            style="width: 80px; text-align: center; float: right;"
-                                            id="jml">
-                                            @for($i = 0; $i <= ($item['stock'] < 15 ? $item['stock'] : 15) ; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                        <!-- <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button> -->
-                                    </td>
-                                </tr>
-                                @endforeach   
-                            </tbody>
-                        </table>
+                        <div>
+                            <table class="table table-hover" style="font-size:50px;">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size:20px;">
+                                            Nama
+                                        </th>
+                                        <th style="font-size:20px;">
+                                            Jumlah
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    
+                                    @foreach($itemList as $index => $item)
+                                    <input type="hidden" name="id_item[]" value="{{$item['id_item']}}" />
+                                    <tr>
+                                        <td>
+                                             {{ $item['nama'] }}<br>
+                                             Rp. {{ number_format($item['price']) }}
+                                        </td>
+                                        <td>
+                                            <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
+                                            <input type="number" value="{{ isset($jumlahbeli[$index])? $jumlahbeli[$index] : 0 }}" min="0" max="{{ $item['stock'] }}" name="jumlahbeli[]" harga="{{ $item['price'] }}" style="width: 40px; text-align: center;" />
+                                            <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($item['stock'] <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach   
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <!-- END CRUD TABLE -->
-                    <div>           
-                        <button type="submit" formaction="{{ url('restoran2') }}" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
-                        </button>
-                        <button type="button" class="submission btn btn-success pull-right">
-                            <i class="fa fa-credit-card"></i> Order 
-                        </button>
-                    </div>
-                <!-- END LOGIN FORM -->
-            </div>
-        </form>
+                </div>
+                <!-- END CRUD TABLE -->
+                <div>           
+                    <button type="submit" formaction="{{ url('restoran2') }}" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Back To Menu
+                    </button>
+                    <button type="button" class="submission btn btn-success pull-right">
+                        <i class="fa fa-credit-card"></i> Order 
+                    </button>
+                </div>
+            <!-- END LOGIN FORM -->
+            </form>
+        </div>
         <div id="dialogoverlay"></div>
         <div id="dialogbox">
             <div>
@@ -221,31 +237,43 @@
             }
         }
 
-        $('#jml').on('change', function(){
-            var harga = parseInt($(this).attr("harga"),10) ;
-            var value = parseInt(this.value, 10);
+        $('.add').click(function () {
+            if ($(this).prev().val() < parseInt($(this).prev().attr("max"),10)){
+                var jumlah = parseInt($(this).prev().attr("harga"),10);
 
-            $('#totaldinamis').val(harga * value);
-            $('#totaltampil').val(numFormat(parseInt($('#totaldinamis').val(),10)));
-            cekIsi();
-
-        });
-
-        $('.submission').click(function () {
-            var harga = parseInt($('#jml').attr("harga"),10) ;
-            var value = parseInt($('#jml').val(), 10);
-            if (berisi == true){
-                if (harga * value < saldo){
-                    $("#formnya").submit();
+                if((parseInt($('#totaldinamis').val(),10) + jumlah) <= saldo){
+                    $(this).prev().val(+$(this).prev().val() + 1);
+                    $('#totaldinamis').val(+$('#totaldinamis').val() + jumlah);
+                    $('#totaltampil').val(numFormat(parseInt($('#totaldinamis').val(),10)));
                 }
                 else{
                     Alert.render('Saldo anda tidak mencukupi');
+                    //alert("saldo anda sebesar "+numFormat(saldo)+" tidak mencukupi");
                 }
-            }
-            else{
-                Alert.render('Anda belum menambah item');
+                cekIsi();
             }
         });
+
+        $('.sub').click(function () {
+            if ($(this).next().val() > 0){
+                var jumlah = parseInt($(this).next().attr("harga"),10);
+                
+                $(this).next().val(+$(this).next().val() - 1);
+                $('#totaldinamis').val(+$('#totaldinamis').val() - jumlah);
+                $('#totaltampil').val(numFormat(parseInt($('#totaldinamis').val(),10)));
+                cekIsi();
+            } 
+        });
+
+        $('.submission').click(function () {
+            if (berisi == true){
+                $("#formnya").submit();
+            }
+            else{
+                Alert.render('Anda belum memilih item');
+            }
+        });
+
 
     </script>
 </html>
