@@ -4,7 +4,7 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Register Customer</title>
+        <title>Top Up Saldo</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -29,46 +29,53 @@
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico"/>
     </head>
-    
     <style type="text/css">
-        .terapis .home-button button{
-            width: 150px;
-            padding: 15px 0px;
-            margin: 10px;
-            font-size: 30px;
+        button {
+            width: 200px;
+            height: 100px;
         }
     </style>
     <!-- BEGIN BODY -->
     <body class="terapis">
 
         <div class="home-button">
-            <form class="terapis-form" method="post" action="{{ url('backToBar') }}" > 
+            <form class="terapis-form" method="post" action="{{ url('printTopUp') }}" > 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <br>    
-                <p class="hidden-print" style='font-size: 50px; color: white'>No Kartu</p>
-                <p class="hidden-print" style='font-size: 50px; color: white'>Berhasil di Register</p>
+                <p class="hidden-print" style='font-size: 50px; color: white'>Pembayaran Berhasil</p>
                 <ul><?='<span style="font-size: 16px; color: red">'.Session::get('successMsg').'</span>'?></ul>
-
+                
                 <div class="col-md-6 col-md-offset-4" id="tagihan">
+                    <div>
+                        <span>No. Kartu : {{ $noKartu }}</span>
+                    </div>
                     <br>
                     <div>
                         <table class="table" style="width:250px; color: black; text-align: left">
                             <tbody>
                                 <tr>
                                     <td>
-                                        No. Kartu
+                                        Saldo Sebelum
                                     </td>
                                     <td>
-                                        : {{ $noKartu }}
+                                        : Rp. {{ number_format($sebelum) }}
                                     </td>
                                 </tr>
                                 <tr>    
                                     <td>
-                                        Isi Saldo 
+                                        Jumlah Top Up
                                     </td>
                                     <td>
-                                        : Rp. {{ number_format($saldo) }}
+                                        : Rp. {{ number_format($jumlah) }}
+                                    </td>
+                                </tr>
+                                <tr>    
+                                    <td>
+                                        Saldo Sekarang
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($sebelum + $jumlah) }}
                                     </td>
                                 </tr>   
                             </tbody>
@@ -76,11 +83,11 @@
                         <br>
                     </div>
                 </div>
-                <div class="hidden-print col-md-4 col-md-offset-4">
-                    <button type="button" class="btn btn-primary" onclick="location.href = '{{ url('auth/register') }}';">
+                <div class="hidden-print col-md-9 col-md-offset-2">
+                    <button type="button" class="btn btn-primary" onclick="location.href = '{{ url('cashierMenu') }}';">
                         <i class="glyphicon glyphicon-chevron-left"></i> Back
                     </button>
-                    <button style="padding: 5px;" type="submit" class="btn btn-success pull-right" onclick="window.print();">Print</button>
+                    <button style="padding: 10px;" type="submit" class="btn btn-success pull-right" onclick="window.print();">Print</button>
                 </div>
             </form>
         </div>

@@ -4,7 +4,8 @@
 <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Restoran Menu</title>
+        <title>Register Customer
+        </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta content="" name="description"/>
@@ -24,62 +25,76 @@
         <link href="{{ asset('assets/css/style-responsive.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/pages/terapis.css') }}" rel="stylesheet">
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico"/>
+
     </head>
     
     <!-- BEGIN BODY -->
-    <body class="terapis">
+    <body class="login">
         <!-- BEGIN LOGO -->
         <div class="logo">
-        <!--<img src="assets/img/logo.png" alt=""/>-->
+<!--            <img src="assets/img/logo.png" alt=""/>-->
         </div>
         <!-- END LOGO -->
-        <p style='font-size: 70px; color: white; text-align: center;'>MENU RESTORAN</p>
-        <br>
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-
-            <form class="terapis-form" action="{{ url('restoran') }}" method="post">
+            <form class="login-form" action="{{ url('
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <h3 class="form-title hidden-print" style='font-size: 38px;'>Register Customer</h3>
 
-                    @foreach ($errors->all() as $error)
-                        <li style='font-size: 16px; color: red'>{{ $error }}</li>
-                    @endforeach
+                <br>
+                <div class="col-md-6 col-md-offset-3" id="tagihan">
+
+                    <div>
+                    <table class="table table-hover" style="width:250px">
+                        <thead>
+                    <tr>
+                        <th>
+                             No. Kartu 
+                        </th>
+                        <th>
+                             Isi Saldo
+                        </th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                            
+           
+                        <td>
+                             {{ $noKartu }}
+                        </td>
+                        <td>
+                             {{ $saldo }}
+                        </td>
+                    </tr>    
+
+                    </tbody>
+                    </table>
+
+                    <br>
+
+                </div>
                 
-                    <p style='font-size: 16px; color: green'>{{ isset($success)? $success : '' }}</p>
-                
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-barcode fa-fw" style="font-size: 2em"></i>
-                        </span>
-                        <input id="pelanggan-barcode" class="form-control placeholder-no-fix" type="text" style='font-size: 24px;' autocomplete="off" placeholder="Scan No. Kartu" name="noGelang" autofocus/>
+                </div>
+
+                <div class="form-actions hidden-print">
+                    <button type="button" class="btn btn-primary" onclick="location.href = '{{ url('auth/register') }}';">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Back
+                    </button>
+                    <div class="pull-right">
+                        <button type="submit" formaction="{{ url('registerPrint') }}" class="btn btn-success" onclick="window.print();">
+                            <span class="glyphicon glyphicon-check"></span> Print Invoice
+                        </button>
                     </div>
                 </div>
             </form>
             <!-- END LOGIN FORM -->
         </div>
         <!-- END LOGIN -->
-    <div id="dialogoverlay"></div>
-    <div id="dialogbox">
-      <div>
-        <!-- <div id="dialogboxhead"></div> -->
-        <div id="dialogboxbody"></div>
-        <div id="dialogboxfoot"></div>
-      </div>
-    </div>
-
     </body>
-
-    <script>
-    window.onload = function() {
-      var input = document.getElementById("pelanggan-barcode").focus();
-    }
-    </script>
-
 <!-- END BODY -->
 </html>

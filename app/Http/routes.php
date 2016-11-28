@@ -19,24 +19,14 @@ Route::group(array('prefix' => 'restoran'), function(){
     });
 
 	Route::post('/', 'RestoranController@restoran');
-	
-	Route::get('makanan', 'RestoranController@makanan');
-	Route::post('makanan', 'RestoranController@makananReview');
-	Route::post('makanan/order', 'RestoranController@makananBeli');
-	Route::post('makanan/delete', 'RestoranController@makananDelete');
+	Route::post('review', 'RestoranController@review');
+	Route::post('invoice', 'RestoranController@invoice');
+	Route::post('delete/{id}', 'RestoranController@delete');
+	Route::post('back', 'RestoranController@back');
+	Route::post('order', 'RestoranController@invoice');
 
-	Route::get('minuman', 'RestoranController@minuman');
-	Route::post('minuman', 'RestoranController@minumanReview');
-	Route::post('minuman/order', 'RestoranController@minumanBeli');
-	Route::post('minuman/delete', 'RestoranController@minumanDelete');
-
-	Route::get('rokok', 'RestoranController@rokok');
-	Route::post('rokok', 'RestoranController@rokokReview');
-	Route::post('rokok/order', 'RestoranController@rokokBeli');
-	Route::post('rokok/delete', 'RestoranController@rokokDelete');
-
-	Route::get('ob', 'RestoranController@ob');
-	Route::post('ob', 'RestoranController@obOrder');
+	Route::post('ob', 'RestoranController@ob');
+	Route::post('orderob', 'RestoranController@obOrder');
 
 });
 
@@ -46,24 +36,15 @@ Route::group(array('prefix' => 'restoran2'), function(){
     });
 
 	Route::post('/', 'Restoran2Controller@restoran');
-	
-	Route::get('makanan', 'Restoran2Controller@makanan');
-	Route::post('makanan', 'Restoran2Controller@makananReview');
-	Route::post('makanan/order', 'Restoran2Controller@makananBeli');
-	Route::post('makanan/delete', 'Restoran2Controller@makananDelete');
+	Route::post('review', 'Restoran2Controller@review');
+	Route::post('invoice', 'Restoran2Controller@invoice');
+	Route::post('delete/{id}', 'Restoran2Controller@delete');
+	Route::post('back', 'Restoran2Controller@back');
+	Route::post('order', 'Restoran2Controller@invoice');
 
-	Route::get('minuman', 'Restoran2Controller@minuman');
-	Route::post('minuman', 'Restoran2Controller@minumanReview');
-	Route::post('minuman/order', 'Restoran2Controller@minumanBeli');
-	Route::post('minuman/delete', 'Restoran2Controller@minumanDelete');
+	Route::post('ob', 'Restoran2Controller@ob');
+	Route::post('orderob', 'Restoran2Controller@obOrder');
 
-	Route::get('rokok', 'Restoran2Controller@rokok');
-	Route::post('rokok', 'Restoran2Controller@rokokReview');
-	Route::post('rokok/order', 'Restoran2Controller@rokokBeli');
-	Route::post('rokok/delete', 'Restoran2Controller@rokokDelete');
-
-	Route::get('ob', 'Restoran2Controller@ob');
-	Route::post('ob', 'Restoran2Controller@obOrder');
 });
 
 Route::group(array('prefix' => 'restoran3'), function(){
@@ -72,24 +53,15 @@ Route::group(array('prefix' => 'restoran3'), function(){
     });
 
 	Route::post('/', 'Restoran3Controller@restoran');
-	
-	Route::get('makanan', 'Restoran3Controller@makanan');
-	Route::post('makanan', 'Restoran3Controller@makananReview');
-	Route::post('makanan/order', 'Restoran3Controller@makananBeli');
-	Route::post('makanan/delete', 'Restoran3Controller@makananDelete');
+	Route::post('review', 'Restoran3Controller@review');
+	Route::post('invoice', 'Restoran3Controller@invoice');
+	Route::post('delete/{id}', 'Restoran3Controller@delete');
+	Route::post('back', 'Restoran3Controller@back');
+	Route::post('order', 'Restoran3Controller@invoice');
 
-	Route::get('minuman', 'Restoran3Controller@minuman');
-	Route::post('minuman', 'Restoran3Controller@minumanReview');
-	Route::post('minuman/order', 'Restoran3Controller@minumanBeli');
-	Route::post('minuman/delete', 'Restoran3Controller@minumanDelete');
+	Route::post('ob', 'Restoran3Controller@ob');
+	Route::post('orderob', 'Restoran3Controller@obOrder');
 
-	Route::get('rokok', 'Restoran3Controller@rokok');
-	Route::post('rokok', 'Restoran3Controller@rokokReview');
-	Route::post('rokok/order', 'Restoran3Controller@rokokBeli');
-	Route::post('rokok/delete', 'Restoran3Controller@rokokDelete');
-
-	Route::get('ob', 'Restoran3Controller@ob');
-	Route::post('ob', 'Restoran3Controller@obOrder');
 });
 
 

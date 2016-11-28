@@ -26,6 +26,7 @@
         <link href="{{ asset('assets/css/themes/default.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/pages/loginWide.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/pages/terapis.css') }}" rel="stylesheet">
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico"/>
         <!-- BEGIN EXTERNAL SCRIPTS -->
@@ -34,13 +35,50 @@
     
     <!-- BEGIN BODY -->
     <body class="login">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-<!--            <img src="assets/img/logo.png" alt=""/>-->
+        <div class="terapis visible-print">
+            <div class="home-button">
+                <div class="col-md-6 col-md-offset-4" id="tagihan">
+                    <div>
+                        <span>No. Kartu : {{ $noKartu }}</span>
+                    </div>
+                    <br>
+                    <div>
+                        <table class="table" style="width:250px; color: black; text-align: left">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Saldo Sebelum
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($sebelum) }}
+                                    </td>
+                                </tr>
+                                <tr>    
+                                    <td>
+                                        Jumlah Top Up
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($jumlah) }}
+                                    </td>
+                                </tr>
+                                <tr>    
+                                    <td>
+                                        Saldo Sekarang
+                                    </td>
+                                    <td>
+                                        : Rp. {{ number_format($sebelum + $jumlah) }}
+                                    </td>
+                                </tr>  
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
-        <div class="content">
+        <div class="content hidden-print" style="margin-top: 50px;">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" action="{{ url('pembayaran') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -135,6 +173,8 @@
             <!-- END LOGIN FORM -->
         </div>
         <!-- END LOGIN -->
+
     </body>
+    
 <!-- END BODY -->
 </html>
