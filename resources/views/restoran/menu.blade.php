@@ -105,6 +105,11 @@
                 background: white;
             }
 
+            .table tr{
+                border-bottom: 2px solid;
+                border-top: 2px solid;
+            }
+
         </style>
 
     </head>
@@ -303,7 +308,7 @@
             </div>
 
             <div class="rokok" style="display: none;">
-                <div class="content" style="width: 450px; @if(isset($rokoklist))float: left; margin: 5px 3px 3px 3px; @else margin: 5px auto 3px; @endif" >
+                <div class="content" style="width: 450px; @if(isset($rokoklist))float: left; margin: 5px 3px 3px 200px; @else margin: 5px auto 3px; @endif" >
                     <!-- BEGIN CRUD TABLE -->
                     <table class="table table-hover" style="font-size:16px;">
                         <tbody>
@@ -342,28 +347,6 @@
                                 </td>
                             </tr>
                             @endforeach   
-                        </tbody>
-                    </table>
-                    <!-- END CRUD TABLE -->
-                </div>
-                <div class="content" style="float: left; width: 440px; margin: 5px 0px 3px 3px;">
-                    <!-- BEGIN CRUD TABLE -->
-                    <table class="table table-hover" style="font-size:16px;">
-                        <tbody>                        
-                            @foreach($rokoklist->forPage(3, 10) as $index => $rokok)
-                            <input type="hidden" name="id_item[]" value="{{ $rokok->id_item }}" />
-                            <tr>
-                                <td>
-                                     {{ $rokok->nama }}<br>
-                                     Rp. {{ number_format($rokok->price) }}
-                                </td>
-                                <td>
-                                    <button type="button" id="sub" class="sub btn btn-default btn-circle btn-lg" @if($rokok->stock <= 0) disabled @endif><i class="glyphicon glyphicon-minus"></i></button>
-                                    <input class="input-item" iditem="{{ $rokok->id_item }}" type="number" value="{{ isset($jml[$rokok->id_item]) ? $jml[$rokok->id_item] : 0 }}" min="0" max="{{ $rokok->stock }}" name="jumlahbeli[]" harga="{{ $rokok->price }}" style="width: 40px; text-align: center; font-size: 40px" />
-                                    <button type="button" id="add" class="add btn btn-default btn-circle btn-lg" @if($rokok->stock <= 0) disabled @endif><i class="glyphicon glyphicon-plus"></i></button>
-                                </td>
-                            </tr>
-                            @endforeach    
                         </tbody>
                     </table>
                     <!-- END CRUD TABLE -->

@@ -59,7 +59,7 @@
                                         Saldo Sebelum
                                     </td>
                                     <td>
-                                        : Rp. {{ number_format($sebelum) }}
+                                        : Rp. {{ ($sebelum) }}
                                     </td>
                                 </tr>
                                 <tr>    
@@ -67,7 +67,7 @@
                                         Jumlah Top Up
                                     </td>
                                     <td>
-                                        : Rp. {{ number_format($jumlah) }}
+                                        : Rp. {{ ($jumlah) }}
                                     </td>
                                 </tr>
                                 <tr>    
@@ -75,7 +75,7 @@
                                         Saldo Sekarang
                                     </td>
                                     <td>
-                                        : Rp. {{ number_format($sebelum + $jumlah) }}
+                                        : Rp. {{ ($sebelum + $jumlah) }}
                                     </td>
                                 </tr>   
                             </tbody>
